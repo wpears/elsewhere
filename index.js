@@ -1,13 +1,18 @@
 (function(){
   var geo = window.navigator.geolocation;
   var getCurr = geo.getCurrentPosition.bind(geo);
-  var latitude = 0;
-  var longitude = 0;
+  var latitude = 39.04;
+  var longitude = 125.75;
 
   function patch(realPos){
     var pos = JSON.parse(JSON.stringify(realPos));
-    pos.coords.latitude = latitude;
-    pos.coords.longitude = longitude;
+    var coords = pos.coords;
+
+    coords.latitude = latitude;
+    coords.longitude = longitude;
+    coords.constructor = realPos.coords.constructor;
+    pos.constructor = realPos.constructor;
+
     this(pos);
   }
 
